@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sscf.usertrajectory.dao.cluster.TAdvisorConsumerDao">
+    <select id="selectTAdvisorConsumerList" parameterType="cn.sscf.usertrajectory.dto.UserTrackNewDto"
+            resultType="cn.sscf.usertrajectory.entity.UserTrackNew">
+        select
+        t2.advisor_name circle_name,
+        t1.follow_time focus_time,
+        t1.forbid_time cancle_time
+        from
+        t_advisor_consumer t1
+        left join t_advisor_info t2
+        on
+        t1.advisor_id=t2.advisor_id
+        <where>
+            <if test="user_id !=null">
+                and t1.consumer_id =#{user_id}
+            </if>
+            <if test="circle_name!=null">
+                and t2.advisor_name=#{circle_name}
+            </if>
+        </where>
+        order by t1.follow_time desc
+    </select>
+
+    <select id="selectTUserPayRecordList" parameterType="cn.sscf.usertrajectory.dto.UserTrackNewDto"
+            resultType="cn.sscf.usertrajectory.entity.UserTrackNew">
+        select
+        t1.pay_time reward_time,
+        t2.advisor_name circle_name,
+        t1.order_amount reward_money,
+        if(t1.status=1,'未完成',if(t1.status=2,'完成','失效')) state,
+        t1.refund_time refund_time
+        from
+        t_user_pay_record t1
+        left join t_advisor_info t2
+        on
+        t1.advisor_id=t2.advisor_id
+        <where>
+            <if test="user_id !=null">
+                and t1.account_id=#{user_id}
+            </if>
+            <if test="circle_name!=null">
+                and t2.advisor_name=#{circle_name}
+            </if>
+            and t1.subject_title='打赏'
+        </where>
+        order by t1.pay_time DESC
+    </select>
+</mapper>

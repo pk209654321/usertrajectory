@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sscf.usertrajectory.dao.cluster.UserTestDao">
+	<select id="selectUserTestList"  parameterType="cn.sscf.usertrajectory.entity.UserTest" resultType="cn.sscf.usertrajectory.entity.UserTest">
+	  select * from  user_test
+	</select>
+</mapper>

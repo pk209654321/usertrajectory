@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: collect
+  jackson:
+    default-property-inclusion: non_null
+server:
+  port: 8089
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
+    cn.sscf: DEBUG
+    
